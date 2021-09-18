@@ -1,5 +1,14 @@
-import { handleRequest } from './handler'
+import { Router } from 'itty-router'
+import checkoutRouter from './routers/checkout'
+import shopRouter from './routers/shop'
 
-addEventListener('fetch', (event) => {
-  event.respondWith(handleRequest(event.request))
-})
+const router = Router()
+
+router.all('/checkout/*', checkoutRouter.handle)
+router.all('/shop/*', shopRouter.handle)
+
+router.all('*', () => new Response('Not Found.', { status: 404 }))
+
+addEventListener('fetch', event =>
+  event.respondWith(router.handle(event.request))
+)
