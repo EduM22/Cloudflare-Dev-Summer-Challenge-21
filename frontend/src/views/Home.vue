@@ -1,11 +1,21 @@
 <template>
-  <div>Hello</div>
+  <div>
+    <checkout-cart />
+    <div>Hello</div>
+    <products-list />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import ProductsList from '../components/ProductsCard.vue'
+import CheckoutCart from '../components/ShoppingCart.vue'
+
 export default defineComponent({
   name: 'Home',
-  components: {},
+  components: {
+      ProductsList,
+      CheckoutCart
+  },
 })
 </script>
