@@ -347,10 +347,6 @@ const product = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
   href: '#',
-  breadcrumbs: [
-    { id: 1, name: 'Men', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
-  ],
   images: [
     {
       src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',

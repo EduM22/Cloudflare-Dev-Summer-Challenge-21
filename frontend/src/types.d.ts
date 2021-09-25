@@ -1,19 +1,14 @@
 type product = {
   id: string
-  title: string
-  image: string
-  price: number
-  taxes: [
-    {
-      id: string
-      country: string
-      type: string
-      value: number
-    },
-  ]
+  name: string
+  href: string
+  price: string
+  imageSrc: string
+  imageAlt: string
 }
 
 export type stateType = {
+  featured: Array<product>
   items: Array<product>
   cart: Map<string, number>
   subtotal: number
