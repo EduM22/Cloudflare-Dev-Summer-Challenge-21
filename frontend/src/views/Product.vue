@@ -261,6 +261,7 @@
 
             <button
               type="submit"
+              @click.prevent="submit(product)"
               class="
                 mt-10
                 w-full
@@ -342,8 +343,12 @@ import { defineComponent } from 'vue'
 import { ref } from 'vue'
 import { StarIcon } from '@heroicons/vue/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+import type { product } from '../types'
+import { store } from '../store/store'
+import { getProducts } from '../services/product'
 
-const product = {
+const productA = {
+  id: 1,
   name: 'Basic Tee 6-Pack',
   price: '$192',
   href: '#',
@@ -402,15 +407,24 @@ export default defineComponent({
     StarIcon,
   },
   setup() {
-    const selectedColor = ref(product.colors[0])
-    const selectedSize = ref(product.sizes[2])
+    const selectedColor = ref(productA.colors[0])
+    const selectedSize = ref(productA.sizes[2])
 
     return {
-      product,
+      product: productA,
       reviews,
       selectedColor,
       selectedSize,
     }
+  },
+  async mounted() {
+    await getProducts({})
+  },
+  methods: {
+    submit(product: product) {
+      store.dispatch('setCartProduct', { id: product.id, quantity: 1 })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
   },
 })
 </script>

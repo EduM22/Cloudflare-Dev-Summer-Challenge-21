@@ -65,9 +65,13 @@
 
                   <div class="mt-8">
                     <div class="flow-root">
-                      <ul role="list" class="-my-6 divide-y divide-gray-200">
+                      <ul
+                        role="list"
+                        class="-my-6 divide-y divide-gray-200"
+                        v-if="cart.length > 0"
+                      >
                         <li
-                          v-for="product in products"
+                          v-for="product in cart"
                           :key="product.id"
                           class="py-6 flex"
                         >
@@ -100,9 +104,9 @@
                                 "
                               >
                                 <h3>
-                                  <a :href="product.href">
+                                  <router-link :to="product.href">
                                     {{ product.name }}
-                                  </a>
+                                  </router-link>
                                 </h3>
                                 <p class="ml-4">
                                   {{ product.price }}
@@ -132,6 +136,7 @@
                                     text-indigo-600
                                     hover:text-indigo-500
                                   "
+                                  @click.prevent="remove(product)"
                                 >
                                   Remove
                                 </button>
@@ -140,6 +145,9 @@
                           </div>
                         </li>
                       </ul>
+                      <div v-else>
+                        No products, please add a product to the cart
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -155,31 +163,23 @@
                     "
                   >
                     <p>Subtotal</p>
-                    <p>$262.00</p>
+                    <p>{{ subTotal }}</p>
                   </div>
                   <p class="mt-0.5 text-sm text-gray-500">
                     Shipping and taxes calculated at checkout.
                   </p>
                   <div class="mt-6">
-                    <a
-                      href="#"
-                      class="
-                        flex
-                        justify-center
-                        items-center
-                        px-6
-                        py-3
-                        border border-transparent
-                        rounded-md
-                        shadow-sm
-                        text-base
-                        font-medium
-                        text-white
-                        bg-indigo-600
-                        hover:bg-indigo-700
+                    <button
+                      :class="
+                        isDisabled
+                          ? 'w-full text-lg bg-gray-400 p-2 rounded-md'
+                          : 'flex w-full justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700'
                       "
-                      >Checkout</a
+                      @click.prevent="submit"
+                      :disabled="isDisabled"
                     >
+                      Checkout
+                    </button>
                   </div>
                   <div
                     class="
@@ -216,7 +216,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ref } from 'vue'
 import {
   Dialog,
   DialogOverlay,
@@ -224,35 +223,9 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
+import type { product } from '../types'
 import { XIcon } from '@heroicons/vue/outline'
-
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt:
-      'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
+import { store } from '../store/store'
 
 export default defineComponent({
   name: 'ShoppingCart',
@@ -264,13 +237,30 @@ export default defineComponent({
     TransitionRoot,
     XIcon,
   },
-  setup() {
-    const open = ref(true)
-
-    return {
-      products,
-      open,
-    }
+  computed: {
+    open: {
+      get() {
+        return store.getters.getShowCart
+      },
+      set(value: boolean) {
+        return store.dispatch('setShowCart', value)
+      },
+    },
+    cart() {
+      return store.getters.getCart
+    },
+    subTotal() {
+      return store.getters.getSubTotal
+    },
+    isDisabled() {
+      const cart = store.getters.getCart
+      return cart.length <= 0 ? true : false
+    },
+  },
+  methods: {
+    remove(product: product) {
+      store.dispatch('setCartProduct', { id: product.id, quantity: -1 })
+    },
   },
 })
 </script>

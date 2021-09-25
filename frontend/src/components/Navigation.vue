@@ -149,7 +149,10 @@
             <div class="ml-auto flex items-center">
               <!-- Cart -->
               <div class="ml-4 flow-root lg:ml-6">
-                <a href="#" class="group -m-2 p-2 flex items-center">
+                <button
+                  @click="showCart"
+                  class="group -m-2 p-2 flex items-center"
+                >
                   <ShoppingBagIcon
                     class="
                       flex-shrink-0
@@ -168,10 +171,10 @@
                       text-gray-700
                       group-hover:text-gray-800
                     "
-                    >0</span
+                    >{{ cartQuantity }}</span
                   >
                   <span class="sr-only">items in cart, view bag</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -205,6 +208,7 @@ import {
   ShoppingBagIcon,
   XIcon,
 } from '@heroicons/vue/outline'
+import { store } from '../store/store'
 
 const navigation = {
   pages: [
@@ -241,6 +245,16 @@ export default defineComponent({
       navigation,
       open,
     }
+  },
+  methods: {
+    showCart() {
+      store.dispatch('setShowCart', true)
+    },
+  },
+  computed: {
+    cartQuantity() {
+      return store.getters.getCartQuantity
+    },
   },
 })
 </script>
