@@ -9,7 +9,7 @@ import { defineComponent } from 'vue'
 import ProductsList from '../components/ProductsCard.vue'
 
 export default defineComponent({
-  name: 'Home',
+  name: 'Products',
   components: {
     ProductsList,
   },
