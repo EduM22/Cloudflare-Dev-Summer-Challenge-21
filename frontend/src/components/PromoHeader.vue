@@ -9,14 +9,13 @@
               font font-extrabold
               tracking-tight
               text-gray-900
-              sm:text-6xl
+              sm:text-5xl
             "
           >
-            Summer styles are finally here
+            New Products in stock
           </h1>
           <p class="mt-4 text-xl text-gray-500">
-            This year, our new summer collection will shelter you from the harsh
-            elements of a world that doesn't care if you live or die.
+            This year, our new summer products collection will be even better than last year.
           </p>
         </div>
         <div>
@@ -126,7 +125,7 @@
                 text-white
                 hover:bg-indigo-700
               "
-              >Shop Collection</router-link
+              >Shop Products</router-link
             >
           </div>
         </div>
