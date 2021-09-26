@@ -109,7 +109,7 @@
                                   </router-link>
                                 </h3>
                                 <p class="ml-4">
-                                  {{ product.price }}
+                                  {{ convertPrice(product.price) }}
                                 </p>
                               </div>
                               <p class="mt-1 text-sm text-gray-500">
@@ -226,6 +226,7 @@ import {
 import type { product } from '../types'
 import { XIcon } from '@heroicons/vue/outline'
 import { store } from '../store/store'
+import { displayToCurrency } from '../utils/utils'
 
 export default defineComponent({
   name: 'ShoppingCart',
@@ -250,7 +251,7 @@ export default defineComponent({
       return store.getters.getCart
     },
     subTotal() {
-      return store.getters.getSubTotal
+      return displayToCurrency({ number: store.getters.getSubTotal })
     },
     isDisabled() {
       const cart = store.getters.getCart
@@ -260,6 +261,9 @@ export default defineComponent({
   methods: {
     remove(product: product) {
       store.dispatch('setCartProduct', { id: product.id, quantity: -1 })
+    },
+    convertPrice(number: number) {
+      return displayToCurrency({ number: number })
     },
   },
 })

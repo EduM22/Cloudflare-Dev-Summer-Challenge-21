@@ -20,13 +20,14 @@
       {{ product.name }}
     </h3>
     <p class="mt-1 text-lg font-medium text-gray-900">
-      {{ product.price }}
+      {{ price }}
     </p>
   </router-link>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { displayToCurrency } from '../utils/utils'
 
 export default defineComponent({
   name: 'ProductsCard',
@@ -34,5 +35,10 @@ export default defineComponent({
     product: Object,
   },
   components: {},
+  computed: {
+    price() {
+      return displayToCurrency({ number: this.product.price })
+    },
+  },
 })
 </script>

@@ -52,39 +52,14 @@
                       "
                     >
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg"
                         alt=""
                         class="w-full h-full object-center object-cover"
                       />
                     </div>
                     <div class="w-44 h-64 rounded-lg overflow-hidden">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
-                        alt=""
-                        class="w-full h-full object-center object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8"
-                  >
-                    <div class="w-44 h-64 rounded-lg overflow-hidden">
-                      <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
-                        alt=""
-                        class="w-full h-full object-center object-cover"
-                      />
-                    </div>
-                    <div class="w-44 h-64 rounded-lg overflow-hidden">
-                      <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
-                        alt=""
-                        class="w-full h-full object-center object-cover"
-                      />
-                    </div>
-                    <div class="w-44 h-64 rounded-lg overflow-hidden">
-                      <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg"
                         alt=""
                         class="w-full h-full object-center object-cover"
                       />
@@ -95,14 +70,39 @@
                   >
                     <div class="w-44 h-64 rounded-lg overflow-hidden">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
                         alt=""
                         class="w-full h-full object-center object-cover"
                       />
                     </div>
                     <div class="w-44 h-64 rounded-lg overflow-hidden">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg"
+                        alt=""
+                        class="w-full h-full object-center object-cover"
+                      />
+                    </div>
+                    <div class="w-44 h-64 rounded-lg overflow-hidden">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-05.jpg"
+                        alt=""
+                        class="w-full h-full object-center object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8"
+                  >
+                    <div class="w-44 h-64 rounded-lg overflow-hidden">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-06.jpg"
+                        alt=""
+                        class="w-full h-full object-center object-cover"
+                      />
+                    </div>
+                    <div class="w-44 h-64 rounded-lg overflow-hidden">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
                         alt=""
                         class="w-full h-full object-center object-cover"
                       />

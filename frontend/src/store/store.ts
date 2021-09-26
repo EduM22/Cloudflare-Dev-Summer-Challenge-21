@@ -17,21 +17,26 @@ const getters = {
   },
   getCart(state: stateType) {
     const products = Array<product>()
+    let subTotal = 0
     state.items.forEach((product) => {
       const quantity = state.cart.get(product.id)
 
       if (quantity != undefined) {
+        subTotal += product.price * quantity
         products.push({
           ...product,
           quantity,
         })
       }
     })
-    console.warn(products)
+    state.subtotal = subTotal
     return products
   },
   getSubTotal(state: stateType) {
     return state.subtotal
+  },
+  getCurrency(state: stateType) {
+    return state.currency
   },
 }
 
@@ -80,6 +85,9 @@ const mutations = {
   changeSubTotal(state: stateType, number: number) {
     state.subtotal = number
   },
+  changeCurrency(state: stateType, currency: string) {
+    state.currency = currency
+  },
 }
 
 // actions
@@ -102,10 +110,14 @@ const actions = {
   setSubTotal({ commit }: { commit: Function }, number: number) {
     commit('changeSubTotal', number)
   },
+  setCurrency({ commit }: { commit: Function }, currency: string) {
+    commit('changeCurrency', currency)
+  },
 }
 
 export const store = createStore({
   state: {
+    currency: 'USD',
     showCart: false,
     cartQuantity: 0,
     featured: new Array<product>(),
