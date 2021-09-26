@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white" v-if="!loading">
     <div class="pt-6">
       <!-- Image gallery -->
       <div
@@ -13,11 +13,9 @@
       >
         <div
           class="
-            hidden
-            aspect-w-3 aspect-h-4
-            rounded-lg
-            overflow-hidden
-            lg:block
+            aspect-w-4 aspect-h-5
+            sm:rounded-lg sm:overflow-hidden
+            lg:aspect-w-3 lg:aspect-h-4
           "
         >
           <img
@@ -26,7 +24,7 @@
             class="w-full h-full object-center object-cover"
           />
         </div>
-        <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+        <!--<div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
           <div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
             <img
               :src="product.images[1].src"
@@ -54,7 +52,7 @@
             :alt="product.images[3].alt"
             class="w-full h-full object-center object-cover"
           />
-        </div>
+        </div>-->
       </div>
 
       <!-- Product info -->
@@ -96,7 +94,7 @@
           <p class="text-3xl text-gray-900">{{ product.price }}</p>
 
           <!-- Reviews -->
-          <div class="mt-6">
+          <div class="mt-6" v-if="reviews">
             <h3 class="sr-only">Reviews</h3>
             <div class="flex items-center">
               <div class="flex items-center">
@@ -129,7 +127,7 @@
 
           <form class="mt-10">
             <!-- Colors -->
-            <div>
+            <div v-if="product.colors.length > 0">
               <h3 class="text-sm text-gray-900 font-medium">Color</h3>
 
               <RadioGroup v-model="selectedColor" class="mt-4">
@@ -169,7 +167,7 @@
             </div>
 
             <!-- Sizes -->
-            <div class="mt-10">
+            <div class="mt-10" v-if="product.sizes">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm text-gray-900 font-medium">Size</h3>
                 <a
@@ -301,7 +299,7 @@
           "
         >
           <!-- Description and details -->
-          <div>
+          <div v-if="product.description">
             <h3 class="sr-only">Description</h3>
 
             <div class="space-y-6">
@@ -309,7 +307,7 @@
             </div>
           </div>
 
-          <div class="mt-10">
+          <div class="mt-10" v-if="product.highlights">
             <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
 
             <div class="mt-4">
@@ -325,7 +323,7 @@
             </div>
           </div>
 
-          <div class="mt-10">
+          <div class="mt-10" v-if="product.details">
             <h2 class="text-sm font-medium text-gray-900">Details</h2>
 
             <div class="mt-4 space-y-6">
@@ -336,18 +334,21 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    loading...
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ref } from 'vue'
 import { StarIcon } from '@heroicons/vue/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import type { product } from '../types'
 import { store } from '../store/store'
-import { getProducts } from '../services/product'
+import { getProductById, getProducts } from '../services/product'
 
-const productA = {
+
+let productA = {
   id: 1,
   name: 'Basic Tee 6-Pack',
   price: '$192',
@@ -406,19 +407,26 @@ export default defineComponent({
     RadioGroupOption,
     StarIcon,
   },
-  setup() {
-    const selectedColor = ref(productA.colors[0])
-    const selectedSize = ref(productA.sizes[2])
-
+  data() {
     return {
-      product: productA,
-      reviews,
-      selectedColor,
-      selectedSize,
+      loading: true,
+      product: {}
     }
   },
   async mounted() {
     await getProducts({})
+    const id = this.$route.params.id
+
+    console.warn(id)
+
+    const localProduct = await getProductById({
+      id: (Array.isArray(id) ? id[0] : id)
+    })
+
+    console.warn(localProduct)
+
+    this.product = localProduct
+    this.loading = false
   },
   methods: {
     submit(product: product) {

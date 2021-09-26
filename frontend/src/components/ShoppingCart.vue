@@ -86,8 +86,8 @@
                             "
                           >
                             <img
-                              :src="product.imageSrc"
-                              :alt="product.imageAlt"
+                              :src="product.images[0].src"
+                              :alt="product.images[0].alt"
                               class="w-full h-full object-center object-cover"
                             />
                           </div>

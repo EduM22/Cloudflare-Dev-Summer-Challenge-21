@@ -17,12 +17,10 @@ const getters = {
   },
   getCart(state: stateType) {
     const products = Array<product>()
-    console.log(`bbb ${JSON.stringify(state.items.length)}`)
     state.items.forEach((product) => {
       const quantity = state.cart.get(product.id)
 
       if (quantity != undefined) {
-        console.log('match')
         products.push({
           ...product,
           quantity,

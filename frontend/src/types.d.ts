@@ -3,9 +3,11 @@ type product = {
   name: string
   href: string
   price: string
-  imageSrc: string
-  imageAlt: string
-  color: string
+  image: Array<{
+    src: string
+    alt: string
+  }>
+  colors: Array<{ name: string, class: string, selectedClass: string }>
   quantity: number
 }
 

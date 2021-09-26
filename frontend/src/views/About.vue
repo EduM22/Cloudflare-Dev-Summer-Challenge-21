@@ -15,16 +15,50 @@
             Demo store
           </h1>
           <p class="mt-4 text-xl text-gray-500">
-            For Cloudflare Developer Summer Challenge
-            <br>Built with:
-            <ul>
-              <li class="text-gray-600"><a class="hover:text-blue-700" href="https://tailwindcss.com/" target="_blank">Tailwind</a></li>
-              <li class="text-gray-600"><a class="hover:text-blue-700" href="https://www.npmjs.com/package/stripe-workers" target="_blank">Stripe-workers</a></li>
-              <li class="text-gray-600"><a class="hover:text-blue-700" href="https://pages.cloudflare.com/" target="_blank">Cloudflare Pages</a></li>
-              <li class="text-gray-600"><a class="hover:text-blue-700" href="https://workers.cloudflare.com/" target="_blank">Cloudflare workers</a></li>
-              <li class="text-gray-600"><a class="hover:text-blue-700" href="https://developers.cloudflare.com/" target="_blank">+ more Cloudflare products</a></li>
-            </ul>
+            For Cloudflare Developer Summer Challenge <br>Built with:
           </p>
+          <ul>
+            <li class="text-gray-600">
+              <a
+                class="hover:text-blue-700"
+                href="https://tailwindcss.com/"
+                target="_blank"
+                >Tailwind</a
+              >
+            </li>
+            <li class="text-gray-600">
+              <a
+                class="hover:text-blue-700"
+                href="https://www.npmjs.com/package/stripe-workers"
+                target="_blank"
+                >Stripe-workers</a
+              >
+            </li>
+            <li class="text-gray-600">
+              <a
+                class="hover:text-blue-700"
+                href="https://pages.cloudflare.com/"
+                target="_blank"
+                >Cloudflare Pages</a
+              >
+            </li>
+            <li class="text-gray-600">
+              <a
+                class="hover:text-blue-700"
+                href="https://workers.cloudflare.com/"
+                target="_blank"
+                >Cloudflare workers</a
+              >
+            </li>
+            <li class="text-gray-600">
+              <a
+                class="hover:text-blue-700"
+                href="https://developers.cloudflare.com/"
+                target="_blank"
+                >+ more Cloudflare products</a
+              >
+            </li>
+          </ul>
         </div>
         <div>
           <div class="mt-10">

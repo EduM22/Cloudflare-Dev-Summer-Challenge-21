@@ -15,7 +15,8 @@
             New Products in stock
           </h1>
           <p class="mt-4 text-xl text-gray-500">
-            This year, our new summer products collection will be even better than last year.
+            This year, our new summer products collection will be even better
+            than last year.
           </p>
         </div>
         <div>
