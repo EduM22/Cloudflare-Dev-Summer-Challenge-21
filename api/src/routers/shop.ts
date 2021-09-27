@@ -1,27 +1,47 @@
 import { Router } from 'itty-router'
+import { getProductById, getProducts } from '../services/product'
 
 const router = Router({ base: '/shop' })
 
-const products = [
-    {
-        id: 1,
-        name: `test product`,
-        price: 24000
-    },
-    {
-        id: 2,
-        name: `test product 2`,
-        price: 13000
-    }
-]
+router.get('/products', async () => {
+  try {
+    const data = await getProducts({
+      limit: 3,
+    })
 
-router.get('/products', () => {
-    return new Response(JSON.stringify(products))
+    let products = Array<Promise<unknown>>()
+
+    // @ts-expect-error
+    data.data.forEach(doc => {
+      products.push(getProductById({id: doc.id}))
+    });
+
+    const rawData = await Promise.all(products)
+    const results = rawData.map((doc) => {
+      return {
+        // @ts-expect-error
+        data: doc.data,
+        // @ts-expect-error
+        id: doc.ref.id,
+      }
+    })
+    return new Response(JSON.stringify({
+      products: results
+    }))
+  } catch (error) {
+    return new Response(JSON.stringify(error))
+  }
 })
-    
 
-router.get('/product/:id', () => {
-    return new Response(JSON.stringify(products[0]))
+router.get('/product/:id', async () => {
+  try {
+    const data = await getProductById({
+      id: "310903682760704588"
+    })
+    return new Response(JSON.stringify(data))
+  } catch (error) {
+    return new Response(JSON.stringify(error))
+  }
 })
 
 export default router

@@ -4,6 +4,7 @@
   "description": "Cloudflare worker TypeScript template",
   "main": "dist/worker.js",
   "scripts": {
+    "dev": "wrangler dev",
     "build": "webpack",
     "format": "prettier --write  '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
@@ -37,6 +38,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "faunadb": "^4.4.1",
     "itty-router": "^2.4.2",
     "stripe-workers": "^0.11.1-beta"
   }
