@@ -34,13 +34,12 @@ router.post('/pay', async (req: Request) => {
     })
 
     //res.redirect(303, session.url);
-    return new Response('', {
-      status: 303,
-      headers: {
-        //@ts-expect-error not on types
-        Location: session.url,
-        ...CorsHeaders(req.headers.get('Origin')),
-      },
+    return new Response(JSON.stringify({
+      //@ts-expect-error not on types
+      url: session.url
+    }), {
+      status: 200,
+      headers: CorsHeaders(req.headers.get('Origin'))
     })
   } catch (error) {
     return new Response(

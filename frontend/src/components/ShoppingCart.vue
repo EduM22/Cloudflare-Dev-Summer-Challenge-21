@@ -238,6 +238,11 @@ export default defineComponent({
     TransitionRoot,
     XIcon,
   },
+  data() {
+    return {
+      disableButton: false
+    }
+  },
   computed: {
     open: {
       get() {
@@ -255,10 +260,25 @@ export default defineComponent({
     },
     isDisabled() {
       const cart = store.getters.getCart
-      return cart.length <= 0 ? true : false
+      return cart.length <= 0 || this.disableButton ? true : false
     },
   },
   methods: {
+    async submit() {
+      try {
+        this.disableButton = true
+        const res = await fetch('http://localhost:8787/checkout/pay', {
+          method: 'POST'
+        })
+
+        const data = await res.json()
+
+        window.location.replace(data.url)
+        this.disableButton = false
+      } catch (error) {
+        console.log(error)
+      }
+    },
     remove(product: product) {
       store.dispatch('setCartProduct', { id: product.id, quantity: -1 })
     },
