@@ -266,10 +266,15 @@ export default defineComponent({
   methods: {
     async submit() {
       try {
+        const cart = store.getters.getCart
+
         this.disableButton = true
         const res = await fetch('http://localhost:8787/checkout/pay', {
-          method: 'POST'
+          method: 'POST',
+          body: JSON.stringify({ cart })
         })
+
+        if (!res.ok) throw Error('Not status ok')
 
         const data = await res.json()
 

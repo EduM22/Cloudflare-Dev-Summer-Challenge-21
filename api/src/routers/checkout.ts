@@ -14,20 +14,28 @@ router.post('/config', (req: Request) => {
 
 router.post('/pay', async (req: Request) => {
   try {
+    const data = await req.json()
+
+    // @ts-expect-error
+    const lineItems = data.cart.map((element) => {
+      return {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: element.name,
+            images: [(element.images[0] ? element.images[0].src : undefined )]
+          },
+          unit_amount: element.price * 100,
+        },
+        quantity: element.quantity,
+      }
+    });
+
+    console.log(JSON.stringify(lineItems))
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'T-shirt',
-            },
-            unit_amount: 2000,
-          },
-          quantity: 1,
-        },
-      ],
+      line_items: lineItems,
       mode: 'payment',
       success_url: 'https://example.com/success',
       cancel_url: 'https://example.com/cancel',
@@ -47,6 +55,7 @@ router.post('/pay', async (req: Request) => {
         error: error,
       }),
       {
+        status: 500,
         headers: CorsHeaders(req.headers.get('Origin')),
       },
     )
