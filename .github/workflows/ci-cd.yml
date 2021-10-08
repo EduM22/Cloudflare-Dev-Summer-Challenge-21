@@ -1,9 +1,13 @@
-name: Deploy
+name: Deploy API
 
 on:
   push:
     branches:
       - main
+
+defaults:
+  run:
+    working-directory: api
 
 jobs:
   #test:
