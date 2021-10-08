@@ -2,7 +2,8 @@ import faunadb from 'faunadb'
 const q = faunadb.query
 
 const client = new faunadb.Client({
-  secret: 'KEY',
+  //@ts-expect-error secret not shown
+  secret: globalThis.FAUNA_KEY,
 })
 
 export async function getProductById(params: { id: string }) {

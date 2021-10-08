@@ -4,7 +4,8 @@ import { CorsHeaders } from '../utils/utils'
 
 const router = Router({ base: '/checkout' })
 
-const stripe = new Stripe('TEST_ID')
+//@ts-expect-error secret not shown
+const stripe = new Stripe(globalThis.STRIPE_SECRET_KEY)
 
 router.post('/config', (req: Request) => {
   return new Response('config checkout', {

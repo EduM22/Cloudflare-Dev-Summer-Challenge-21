@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  #test:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #    - uses: actions/setup-node@v2
+  #    - run: npm ci
+  #    - run: npm run test
+  #      env:
+  #        STRIPE_SECRET_KEY_TEST: ${{ secrets.STRIPE_SECRET_KEY }}
+  #        STRIPE_PUBLISHABLE_KEY_TEST: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+  #        DOMAIN_TEST: ${{ secrets.DOMAIN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    #needs: test
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          #environment: 'production'
+          wranglerVersion: '1.19.3'
+          secrets: |
+            STRIPE_SECRET_KEY
+            FAUNA_KEY
+          #STRIPE_PUBLISHABLE_KEY
+          #DOMAIN
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          FAUNA_KEY: ${{ secrets.FAUNA_KEY }}
+          #STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          #DOMAIN: ${{ secrets.DOMAIN }}
