@@ -14,6 +14,12 @@ router.options('*', (req: Request) => {
 router.all('/checkout/*', checkoutRouter.handle)
 router.all('/shop/*', shopRouter.handle)
 
+router.get('/ping', () => {
+  return new Response(JSON.stringify({
+    msg: 'pong' 
+  }))
+})
+
 router.all(
   '*',
   (req: Request) =>
