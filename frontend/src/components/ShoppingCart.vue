@@ -269,7 +269,7 @@ export default defineComponent({
         const cart = store.getters.getCart
 
         this.disableButton = true
-        const res = await fetch('http://localhost:8787/checkout/pay', {
+        const res = await fetch('https://api.iexploreit.workers.dev/checkout/pay', {
           method: 'POST',
           body: JSON.stringify({ cart })
         })
