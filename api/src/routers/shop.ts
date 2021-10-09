@@ -1,4 +1,5 @@
 import { Router } from 'itty-router'
+import type { Product } from '../bindings'
 import { getProductById, getProducts } from '../services/product'
 import { CorsHeaders } from '../utils/utils'
 
@@ -6,26 +7,23 @@ const router = Router({ base: '/shop' })
 
 router.get('/products', async (req: Request) => {
   try {
+    // @ts-expect-error
+    const { limit, after } = req.query
+
     const data = await getProducts({
-      limit: 3,
+      limit: limit ? parseInt(limit) : 5,
+      after: after ? after : undefined
     })
 
-    let products = Array<Promise<unknown>>()
+    let products = Array<Promise<Product>>()
 
     // @ts-expect-error
     data.data.forEach((doc) => {
       products.push(getProductById({ id: doc.id }))
     })
 
-    const rawData = await Promise.all(products)
-    const results = rawData.map((doc) => {
-      return {
-        // @ts-expect-error
-        data: doc.data,
-        // @ts-expect-error
-        id: doc.ref.id,
-      }
-    })
+    const results = await Promise.all(products)
+
     return new Response(
       JSON.stringify({
         products: results,
@@ -36,6 +34,7 @@ router.get('/products', async (req: Request) => {
     )
   } catch (error) {
     return new Response(JSON.stringify(error), {
+      status: 500,
       headers: CorsHeaders(req.headers.get('Origin')),
     })
   }
@@ -44,7 +43,7 @@ router.get('/products', async (req: Request) => {
 router.get('/product/:id', async (req: Request) => {
   try {
     const data = await getProductById({
-      id: '310903682760704588',
+      id: '311995440125968971',
     })
     return new Response(JSON.stringify(data), {
       headers: CorsHeaders(req.headers.get('Origin')),
