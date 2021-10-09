@@ -18,6 +18,27 @@ export async function getProductById(params: { id: string }) : Promise<Product> 
   return product
 }
 
+export async function getProductByLink(params: { link: string }) : Promise<Product> {
+  const res = await client.query(q.Map(
+    q.Paginate(
+      q.Match(q.Index("product_by_link"), `/${params.link}`)
+    ),
+    q.Lambda(
+      "href",
+      q.Get(q.Var("href"))
+    )
+  ))
+
+  var product: Product = {
+    // @ts-expect-error
+    id: res.data[0].ref.id,
+    // @ts-expect-error
+    ...res.data[0].data
+  }
+
+  return product
+}
+
 export async function getProducts(params: { limit: number; after?: string }) {
   return client.query(
     q.Paginate(q.Documents(q.Collection('Products')), {

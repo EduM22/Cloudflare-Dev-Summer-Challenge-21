@@ -285,7 +285,7 @@ export default defineComponent({
       }
     },
     remove(product: product) {
-      store.dispatch('setCartProduct', { id: product.id, quantity: -1 })
+      store.dispatch('setCartProduct', { id: product.product.id, quantity: -1 })
     },
     convertPrice(number: number) {
       return displayToCurrency({ number: number })

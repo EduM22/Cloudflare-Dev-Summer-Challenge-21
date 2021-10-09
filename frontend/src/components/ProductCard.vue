@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="product.href" class="group">
+  <router-link :to="`/product${product.href}`" class="group">
     <div
       class="
         w-full

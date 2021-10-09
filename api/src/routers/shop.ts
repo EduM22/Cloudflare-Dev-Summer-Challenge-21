@@ -1,6 +1,6 @@
 import { Router } from 'itty-router'
 import type { Product } from '../bindings'
-import { getProductById, getProducts } from '../services/product'
+import { getProductById, getProductByLink, getProducts } from '../services/product'
 import { CorsHeaders } from '../utils/utils'
 
 const router = Router({ base: '/shop' })
@@ -42,14 +42,22 @@ router.get('/products', async (req: Request) => {
 
 router.get('/product/:id', async (req: Request) => {
   try {
-    const data = await getProductById({
-      id: '311995440125968971',
+    // @ts-expect-error
+    const link = req.params.id
+    const data = await getProductByLink({
+      link: link
     })
+
+    /*const data = await getProductById({
+      id: '311995440125968971',
+    })*/
+
     return new Response(JSON.stringify(data), {
       headers: CorsHeaders(req.headers.get('Origin')),
     })
   } catch (error) {
     return new Response(JSON.stringify(error), {
+      status: 500,
       headers: CorsHeaders(req.headers.get('Origin')),
     })
   }

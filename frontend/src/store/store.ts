@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import type { cartProduct, product, stateType } from '../types'
+import type { cartProduct, Product, product, stateType } from '../types'
 
 // getters
 const getters = {
@@ -24,7 +24,7 @@ const getters = {
       if (quantity != undefined) {
         subTotal += product.price * quantity
         products.push({
-          ...product,
+          product,
           quantity,
         })
       }
@@ -42,10 +42,10 @@ const getters = {
 
 // mutations
 const mutations = {
-  changeProducts(state: stateType, products: Array<product>) {
+  changeProducts(state: stateType, products: Array<Product>) {
     state.items = products
   },
-  changeFeatured(state: stateType, products: Array<product>) {
+  changeFeatured(state: stateType, products: Array<Product>) {
     state.featured = products
   },
   changeShowCart(state: stateType, status: boolean) {
@@ -92,10 +92,10 @@ const mutations = {
 
 // actions
 const actions = {
-  setProducts({ commit }: { commit: Function }, products: Array<product>) {
+  setProducts({ commit }: { commit: Function }, products: Array<Product>) {
     commit('changeProducts', products)
   },
-  setFeatured({ commit }: { commit: Function }, products: Array<product>) {
+  setFeatured({ commit }: { commit: Function }, products: Array<Product>) {
     commit('changeFeatured', products)
   },
   setShowCart({ commit }: { commit: Function }, status: boolean) {
@@ -120,8 +120,8 @@ export const store = createStore({
     currency: 'USD',
     showCart: false,
     cartQuantity: 0,
-    featured: new Array<product>(),
-    items: new Array<product>(),
+    featured: new Array<Product>(),
+    items: new Array<Product>(),
     cart: new Map<string, number>(),
     subtotal: 0,
     shipping: 0,

@@ -1,27 +1,27 @@
 import { store } from '../store/store'
-import type { product } from '../types'
-import { data } from '../utils/data'
+import type { Product } from '../types'
 
 export async function getProducts(params: {}) {
-  const products = await data()
+  const response = await fetch(`http://localhost:8787/shop/products`)
 
-  store.dispatch('setProducts', products)
+  if (!response.ok) throw new Error('Not OK')
 
-  store.dispatch('setFeatured', products.slice(0, 3))
+  const data: {products: Array<Product>} = await response.json()
 
-  return products
+  store.dispatch('setProducts', data.products)
+
+  store.dispatch('setFeatured', data.products.slice(0, 4))
+
+  return data.products
 }
 
 export async function getProductById(params: { id: string }) {
-  const products = store.getters.getProducts
+  const response = await fetch(`http://localhost:8787/shop/product/${params.id}`)
 
-  let localProduct: product | undefined = undefined
+  if (!response.ok) throw new Error('Not OK')
 
-  products.forEach((product: product) => {
-    if (product.id == params.id) {
-      localProduct = product
-    }
-  })
+  const product: Product = await response.json()
 
-  return localProduct
+
+  return product
 }
