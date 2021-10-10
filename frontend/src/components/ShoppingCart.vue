@@ -71,8 +71,8 @@
                         v-if="cart.length > 0"
                       >
                         <li
-                          v-for="product in cart"
-                          :key="product.id"
+                          v-for="data in cart"
+                          :key="data.product.id"
                           class="py-6 flex"
                         >
                           <div
@@ -86,8 +86,8 @@
                             "
                           >
                             <img
-                              :src="product.images[0].src"
-                              :alt="product.images[0].alt"
+                              :src="data.product.images[0].src"
+                              :alt="data.product.images[0].alt"
                               class="w-full h-full object-center object-cover"
                             />
                           </div>
@@ -104,17 +104,14 @@
                                 "
                               >
                                 <h3>
-                                  <router-link :to="product.href">
-                                    {{ product.name }}
+                                  <router-link :to="data.product.href">
+                                    {{ data.product.name }}
                                   </router-link>
                                 </h3>
                                 <p class="ml-4">
-                                  {{ convertPrice(product.price) }}
+                                  {{ convertPrice(data.product.price) }}
                                 </p>
                               </div>
-                              <p class="mt-1 text-sm text-gray-500">
-                                {{ product.color }}
-                              </p>
                             </div>
                             <div
                               class="
@@ -125,7 +122,7 @@
                               "
                             >
                               <p class="text-gray-500">
-                                Qty {{ product.quantity }}
+                                Qty {{ data.quantity }}
                               </p>
 
                               <div class="flex">
@@ -136,7 +133,7 @@
                                     text-indigo-600
                                     hover:text-indigo-500
                                   "
-                                  @click.prevent="remove(product)"
+                                  @click.prevent="remove(data.product)"
                                 >
                                   Remove
                                 </button>
@@ -253,7 +250,10 @@ export default defineComponent({
       },
     },
     cart() {
-      return store.getters.getCart
+      const cart = store.getters.getCart
+      console.log("CART:")
+      console.log(cart)
+      return cart
     },
     subTotal() {
       return displayToCurrency({ number: store.getters.getSubTotal })

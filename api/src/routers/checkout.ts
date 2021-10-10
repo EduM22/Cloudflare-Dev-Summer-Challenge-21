@@ -23,16 +23,14 @@ router.post('/pay', async (req: Request) => {
         price_data: {
           currency: 'usd',
           product_data: {
-            name: element.name,
-            images: [(element.images[0] ? element.images[0].src : undefined )]
+            name: element.product.name,
+            images: [(element.product.images[0] ? element.product.images[0].src : undefined )]
           },
-          unit_amount: element.price * 100,
+          unit_amount: element.product.price * 100,
         },
         quantity: element.quantity,
       }
     });
-
-    console.log(JSON.stringify(lineItems))
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
