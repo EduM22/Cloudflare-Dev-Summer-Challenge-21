@@ -36,8 +36,10 @@ router.post('/pay', async (req: Request) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'https://example.com/success',
-      cancel_url: 'https://example.com/cancel',
+      //@ts-expect-error secret not shown
+      success_url: `${globalThis.DOMAIN}/success`,
+      //@ts-expect-error secret not shown
+      cancel_url: `${globalThis.DOMAIN}/cancel`,
     })
 
     //res.redirect(303, session.url);

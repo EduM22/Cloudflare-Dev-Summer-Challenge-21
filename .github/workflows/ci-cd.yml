@@ -34,6 +34,7 @@ jobs:
           secrets: |
             STRIPE_SECRET_KEY
             FAUNA_KEY
+            DOMAIN
           #STRIPE_PUBLISHABLE_KEY
           #DOMAIN
         env:
@@ -41,5 +42,6 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           FAUNA_KEY: ${{ secrets.FAUNA_KEY }}
+          DOMAIN: ${{ secrets.DOMAIN }}
           #STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
           #DOMAIN: ${{ secrets.DOMAIN }}
