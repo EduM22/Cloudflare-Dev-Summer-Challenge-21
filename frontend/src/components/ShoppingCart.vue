@@ -220,7 +220,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import type { product } from '../types'
+import type { Product } from '../types'
 import { XIcon } from '@heroicons/vue/outline'
 import { store } from '../store/store'
 import { displayToCurrency } from '../utils/utils'
@@ -237,7 +237,7 @@ export default defineComponent({
   },
   data() {
     return {
-      disableButton: false
+      disableButton: false,
     }
   },
   computed: {
@@ -251,8 +251,6 @@ export default defineComponent({
     },
     cart() {
       const cart = store.getters.getCart
-      console.log("CART:")
-      console.log(cart)
       return cart
     },
     subTotal() {
@@ -269,10 +267,13 @@ export default defineComponent({
         const cart = store.getters.getCart
 
         this.disableButton = true
-        const res = await fetch('https://api.iexploreit.workers.dev/checkout/pay', {
-          method: 'POST',
-          body: JSON.stringify({ cart })
-        })
+        const res = await fetch(
+          'https://api.iexploreit.workers.dev/checkout/pay',
+          {
+            method: 'POST',
+            body: JSON.stringify({ cart }),
+          },
+        )
 
         if (!res.ok) throw Error('Not status ok')
 
@@ -284,8 +285,8 @@ export default defineComponent({
         console.log(error)
       }
     },
-    remove(product: product) {
-      store.dispatch('setCartProduct', { id: product.product.id, quantity: -1 })
+    remove(product: Product) {
+      store.dispatch('setCartProduct', { id: product.id, quantity: -1 })
     },
     convertPrice(number: number) {
       return displayToCurrency({ number: number })
