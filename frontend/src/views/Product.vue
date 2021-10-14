@@ -1,5 +1,8 @@
 <template>
   <div class="bg-white" v-if="!loading">
+    <metainfo>
+      <template v-slot:title="{ content }">{{ content }}</template>
+    </metainfo>
     <div class="pt-6">
       <!-- Image gallery -->
       <div
@@ -63,17 +66,6 @@
                   />
                 </div>
                 <p class="sr-only">{{ reviews.average }} out of 5 stars</p>
-                <a
-                  :href="reviews.href"
-                  class="
-                    ml-3
-                    text-sm
-                    font-medium
-                    text-indigo-600
-                    hover:text-indigo-500
-                  "
-                  >{{ reviews.totalCount }} reviews</a
-                >
               </div>
             </div>
 
@@ -142,6 +134,7 @@ import type { Product } from '../types'
 import { store } from '../store/store'
 import { getProductById } from '../services/product'
 import { displayToCurrency } from '../utils/utils'
+import { useMeta } from 'vue-meta'
 
 export default defineComponent({
   name: 'Product',
@@ -150,6 +143,16 @@ export default defineComponent({
     RadioGroupLabel,
     RadioGroupOption,
     StarIcon,
+  },
+  setup () {
+    useMeta({
+      title: "Shopy - Product",
+      meta: [
+        { name: 'description', content: 'Shopy has all the products you need for your writing/thinking needs' },
+        // TODO: remove on real site   
+        { name: 'robots', content: 'noindex,nofollow' } 
+      ]
+    })
   },
   data() {
     return {

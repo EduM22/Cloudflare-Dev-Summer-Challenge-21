@@ -13,6 +13,7 @@
     "@heroicons/vue": "^1.0.4",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "vue": "^3.2.6",
+    "vue-meta": "^3.0.0-alpha.9",
     "vue-router": "4",
     "vuex": "^4.0.2"
   },

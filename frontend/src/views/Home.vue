@@ -1,5 +1,8 @@
 <template>
   <div>
+    <metainfo>
+      <template v-slot:title="{ content }">{{ content }}</template>
+    </metainfo>
     <promo-header />
     <div
       class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"
@@ -35,12 +38,23 @@ import ProductCard from '../components/ProductCard.vue'
 import PromoHeader from '../components/PromoHeader.vue'
 import { getProducts } from '../services/product'
 import { store } from '../store/store'
+import { useMeta } from 'vue-meta'
 
 export default defineComponent({
   name: 'Home',
   components: {
     ProductCard,
     PromoHeader,
+  },
+  setup () {
+    useMeta({
+      title: "Shopy - Home",
+      meta: [
+        { name: 'description', content: 'Shopy has all the products you need for your writing/thinking needs' },
+        // TODO: remove on real site   
+        { name: 'robots', content: 'noindex,nofollow' } 
+      ]
+    })
   },
   async mounted() {
     await getProducts({})

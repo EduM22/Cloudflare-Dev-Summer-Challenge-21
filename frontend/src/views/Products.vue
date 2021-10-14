@@ -3,6 +3,9 @@
     v-if="!loading"
     class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"
   >
+    <metainfo>
+      <template v-slot:title="{ content }">{{ content }}</template>
+    </metainfo>
     <h2 class="text-2xl font font-extrabold tracking-tight text-gray-900 mb-2">
       All Products
     </h2>
@@ -36,11 +39,22 @@ import { defineComponent } from 'vue'
 import ProductCard from '../components/ProductCard.vue'
 import { getProducts } from '../services/product'
 import { store } from '../store/store'
+import { useMeta } from 'vue-meta'
 
 export default defineComponent({
   name: 'Products',
   components: {
     ProductCard,
+  },
+  setup () {
+    useMeta({
+      title: "Shopy - Product",
+      meta: [
+        { name: 'description', content: 'Shopy has all the products you need for your writing/thinking needs' },
+        // TODO: remove on real site   
+        { name: 'robots', content: 'noindex,nofollow' } 
+      ]
+    })
   },
   async mounted() {
     try {

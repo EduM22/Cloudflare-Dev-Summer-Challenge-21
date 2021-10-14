@@ -3,7 +3,7 @@
     <metainfo>
       <template v-slot:title="{ content }">{{ content }}</template>
     </metainfo>
-    <div>404</div>
+    <div>Thanks for your purchase</div>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default defineComponent({
   components: {},
   setup () {
     useMeta({
-      title: "Shopy - 404",
+      title: "Shopy - Thanks",
       meta: [
         { name: 'description', content: 'Shopy has all the products you need for your writing/thinking needs' },
         // TODO: remove on real site   

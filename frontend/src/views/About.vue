@@ -1,5 +1,8 @@
 <template>
   <div class="relative bg-white overflow-hidden">
+    <metainfo>
+      <template v-slot:title="{ content }">{{ content }}</template>
+    </metainfo>
     <div class="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:static">
         <div class="sm:max-w-lg">
@@ -161,9 +164,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useMeta } from 'vue-meta'
 
 export default defineComponent({
   name: 'About',
   components: {},
+  setup () {
+    useMeta({
+      title: "Shopy - About",
+      meta: [
+        { name: 'description', content: 'Shopy has all the products you need for your writing/thinking needs' },
+        // TODO: remove on real site   
+        { name: 'robots', content: 'noindex,nofollow' } 
+      ]
+    })
+  },
 })
 </script>
