@@ -268,7 +268,7 @@ export default defineComponent({
 
         this.disableButton = true
         const res = await fetch(
-          'https://api.iexploreit.workers.dev/checkout/pay',
+          'https://api-csc21.rnqvist.com/checkout/pay',
           {
             method: 'POST',
             body: JSON.stringify({ cart }),

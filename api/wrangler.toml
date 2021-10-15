@@ -9,3 +9,5 @@ workers_dev = true
 command = "npm install && npm run build"
 [build.upload]
 format = "service-worker"
+
+routes = ["api-csc21.rnqvist.com/*"]

@@ -3,7 +3,7 @@ import type { Product } from '../types'
 
 export async function getProducts(params: {}) {
   const response = await fetch(
-    `https://api.iexploreit.workers.dev/shop/products`,
+    `https://api-csc21.rnqvist.com/shop/products`,
   )
 
   if (!response.ok) throw new Error('Not OK')
@@ -19,7 +19,7 @@ export async function getProducts(params: {}) {
 
 export async function getProductById(params: { id: string }) {
   const response = await fetch(
-    `https://api.iexploreit.workers.dev/shop/product/${params.id}`,
+    `https://api-csc21.rnqvist.com/shop/product/${params.id}`,
   )
 
   if (!response.ok) throw new Error('Not OK')
