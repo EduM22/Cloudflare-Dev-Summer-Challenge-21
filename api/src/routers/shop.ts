@@ -48,10 +48,6 @@ router.get('/product/:id', async (req: Request) => {
       link: link
     })
 
-    /*const data = await getProductById({
-      id: '311995440125968971',
-    })*/
-
     return new Response(JSON.stringify(data), {
       headers: CorsHeaders(req.headers.get('Origin')),
     })
