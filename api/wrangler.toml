@@ -3,11 +3,10 @@ type = "javascript"
 zone_id = ""
 account_id = ""
 route = ""
-workers_dev = true
+workers_dev = false
+routes = ["api-csc21.rnqvist.com/*"]
 
 [build]
 command = "npm install && npm run build"
 [build.upload]
 format = "service-worker"
-
-routes = ["api-csc21.rnqvist.com/*"]
