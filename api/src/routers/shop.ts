@@ -9,7 +9,7 @@ import { CorsHeaders } from '../utils/utils'
 
 const router = Router({ base: '/shop' })
 
-const cache = caches.default
+//const cache = caches.default
 
 router.get('/products', async (req: Request) => {
   try {
@@ -19,7 +19,30 @@ router.get('/products', async (req: Request) => {
     const limitVal = limit ? parseInt(limit) : 5
     const afterVal = after ? after : undefined
 
-    const cacheKey = `getProducts-${limitVal}-${afterVal}-cache`
+    const data = await getProducts({
+      limit: limitVal,
+      after: afterVal,
+    })
+
+    let products = Array<Promise<Product>>()
+
+    // @ts-expect-error
+    data.data.forEach((doc) => {
+      products.push(getProductById({ id: doc.id }))
+    })
+
+    const results = await Promise.all(products)
+
+    return new Response(
+      JSON.stringify({
+        products: results,
+      }),
+      {
+        headers: CorsHeaders(req.headers.get('Origin')),
+      },
+    )
+
+    /*const cacheKey = `getProducts-${limitVal}-${afterVal}-cache`
 
     var response = await cache.match(cacheKey)
 
@@ -51,7 +74,7 @@ router.get('/products', async (req: Request) => {
 
       return response
     }
-    return response
+    return response*/
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 500,
@@ -65,7 +88,15 @@ router.get('/product/:id', async (req: Request) => {
     // @ts-expect-error
     const link = req.params.id
 
-    const cacheKey = `getProduct-${link}-cache`
+    const data = await getProductByLink({
+      link: link,
+    })
+
+    return new Response(JSON.stringify(data), {
+      headers: CorsHeaders(req.headers.get('Origin')),
+    })
+
+    /*const cacheKey = `getProduct-${link}-cache`
 
     var response = await cache.match(cacheKey)
 
@@ -82,7 +113,7 @@ router.get('/product/:id', async (req: Request) => {
 
       return response
     }
-    return response
+    return response*/
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 500,
