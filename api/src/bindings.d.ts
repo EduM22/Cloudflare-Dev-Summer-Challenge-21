@@ -11,7 +11,7 @@ export type FaunaProduct = {
       src: string
       alt: string
     }>
-  } 
+  }
 }
 
 export type Product = {

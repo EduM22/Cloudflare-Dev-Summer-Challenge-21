@@ -24,13 +24,17 @@ router.post('/pay', async (req: Request) => {
           currency: 'usd',
           product_data: {
             name: element.product.name,
-            images: [(element.product.images[0] ? element.product.images[0].src : undefined )]
+            images: [
+              element.product.images[0]
+                ? element.product.images[0].src
+                : undefined,
+            ],
           },
           unit_amount: element.product.price * 100,
         },
         quantity: element.quantity,
       }
-    });
+    })
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -43,13 +47,16 @@ router.post('/pay', async (req: Request) => {
     })
 
     //res.redirect(303, session.url);
-    return new Response(JSON.stringify({
-      //@ts-expect-error not on types
-      url: session.url
-    }), {
-      status: 200,
-      headers: CorsHeaders(req.headers.get('Origin'))
-    })
+    return new Response(
+      JSON.stringify({
+        //@ts-expect-error not on types
+        url: session.url,
+      }),
+      {
+        status: 200,
+        headers: CorsHeaders(req.headers.get('Origin')),
+      },
+    )
   } catch (error) {
     return new Response(
       JSON.stringify({
